@@ -6,7 +6,7 @@ import * as bcrypt from 'bcrypt';
 export class UserService {
     constructor(private prisma: PrismaService) {}
 
-    async createUser(email: string, name: string, password: string) {
+    async createUser(email: string, name: string, role: string, password: string) {
         // Check if user already exists
         const existingUser = await this.prisma.user.findUnique({
             where: { email },
@@ -25,6 +25,7 @@ export class UserService {
                 email,
                 name,
                 password: hashedPassword,
+                role,
             },
         });
 

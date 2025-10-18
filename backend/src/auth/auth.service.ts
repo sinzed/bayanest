@@ -18,6 +18,7 @@ export class AuthService {
         const payload: JwtPayload = {
             sub: user.id,
             email: user.email,
+            role: user.role,
         };
 
         const accessToken = this.jwtService.sign(payload);
@@ -28,14 +29,15 @@ export class AuthService {
         };
     }
 
-    async register(email: string, name: string, password: string) {
+    async register(email: string, name: string, role: string, password: string) {
         // Create new user
-        const user = await this.userService.createUser(email, name, password);
+        const user = await this.userService.createUser(email, name, role, password);
 
         // Generate JWT token for newly registered user
         const payload: JwtPayload = {
             sub: user.id,
             email: user.email,
+            role: user.role,
         };
 
         const accessToken = this.jwtService.sign(payload);
